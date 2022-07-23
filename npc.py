@@ -12,9 +12,10 @@ class NPC(object):
         self.characteristics.strenght = randint(1, 15)
         self.characteristics.dexterity = randint(1, 15)
         self.characteristics.intelligence = randint(1, 15)
-        print(f"Новый боец по имени: {self.name}, {self}\n")
+        print(f"Новый боец по имени: {self.name}, {self}")
         self.characteristics.get_base_characteristics()
         self.characteristics.get_secondary_characteristics()
+        print()
 
     def get_target(self, players: list):
         while True:
