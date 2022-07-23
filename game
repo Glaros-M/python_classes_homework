@@ -12,28 +12,14 @@ names = [
 ]
 
 
-"""class Singleton:
-    __instance = None
-    def __init__(self, number_of_npc):
-        if not Singleton.__instance:
-            print(" __init__ method called..")
-        else:
-            print("Instance already created:", self.getInstance())
-        self.number_of_NPC = number_of_npc
-        self.npc = []
-        for _ in range(number_of_npc):
-            self.npc.append(NPC(choice(names)))
-            print("add")
-    @classmethod
-    def getInstance(cls):
-        if not cls.__instance:
-            cls.__instance = Singleton()
-        return cls.__instance
-
-
-"""
-
 class Game(object):
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self, number_of_npc: int):
         self.number_of_NPC = number_of_npc
         self.players = []
@@ -42,7 +28,7 @@ class Game(object):
 
     def start(self):
         are_alive = True
-        round = 1
+        round = 0
         while are_alive:
 
             round += 1
@@ -108,7 +94,11 @@ class Players_list():
 
 if __name__ == "__main__":
     print("Welcome to the Game!")
-    game = Game(int(input("Введите количество игроков: ")))
+    #game = Game(int(input("Введите количество игроков: ")))
+    g = Game(0)
+    print(g)
+    game = Game(10)
+    print(game)
     winner = game.start()
     print(f"{winner.name} победил!!!")
 
