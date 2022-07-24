@@ -101,9 +101,7 @@ class Characteristics:
     intelligence = Intelligence()
     mana = Mana()
 
-    # НЕ СОЗДАЮТСЯ НОВЫЕ ОБЬЕКТЫ ДЛЯ КАЖДОГО НОВОГО ПЕРСОНАЖА
 
-    
     def get_base_characteristics(self):
         print(f"Выносливость: {self.endurance}",
               f"Сила: {self.strenght}",

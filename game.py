@@ -80,7 +80,8 @@ class Players_list():
 
 if __name__ == "__main__":
     print("Welcome to the Game!")
-    game = Game(int(input("Введите количество игроков: ")))
+    #game = Game(int(input("Введите количество игроков: ")))
+    game = Game(2)
     winner = game.start()
     print(f"{winner.name} победил!!!")
 

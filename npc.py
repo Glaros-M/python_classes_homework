@@ -27,7 +27,7 @@ class NPC(object):
     def attack(self, target: "NPC"):
         for i in range(self.characteristics.attack_speed):
             if target.is_alive:
-                print(f"Аттака №{i+1}: {self.name} нанес  {target.name}  {self.characteristics.damage} урона")
+                print(f"Аттака №{i+1}: {self.name}({self.characteristics.health}) нанес  {target.name}({target.characteristics.health})  {self.characteristics.damage} урона")
                 target.attacked(self.characteristics.damage)
 
     def attacked(self, damage: int):
