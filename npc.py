@@ -1,21 +1,28 @@
 from characteristics import Characteristics
 from random import randint, choice
 
+
 # Создать класс(?) генератор имен и фамилий
 
+
 class NPC(object):
+
     def __init__(self, name: str):
         self.characteristics = Characteristics()
         self.name = name
         self.is_alive = True
+        self._set_base_characteristic()
+        print(f"Новый {self.class_name} по имени: {self.name}, {self}")
+        self.characteristics.get_base_characteristics()
+        self.characteristics.get_secondary_characteristics()
+        print()
+
+    def _set_base_characteristic(self):
+        self.class_name = "noclass"
         self.characteristics.endurance = randint(1, 20)
         self.characteristics.strenght = randint(1, 15)
         self.characteristics.dexterity = randint(1, 15)
         self.characteristics.intelligence = randint(1, 15)
-        print(f"Новый боец по имени: {self.name}, {self}")
-        self.characteristics.get_base_characteristics()
-        self.characteristics.get_secondary_characteristics()
-        print()
 
     def get_target(self, players: list):
         while True:
@@ -35,8 +42,50 @@ class NPC(object):
             self.characteristics.health = self.characteristics.health - damage
         else:
             self.is_alive = False
-            print(f"{self.name} died!")
+            print(f"{self.name} умерает!")
 
+
+class Warior(NPC):
+
+    def __init__(self, name):
+        super().__init__(name)
+
+    def _set_base_characteristic(self):
+        self.class_name = "Воин"
+        self.characteristics.endurance = randint(10, 30)
+        self.characteristics.strenght = randint(10, 25)
+        self.characteristics.dexterity = randint(1, 15)
+        self.characteristics.intelligence = 0
+
+
+class Rogue(NPC):
+    def __init__(self, name):
+        super().__init__(name)
+
+    def _set_base_characteristic(self):
+        self.class_name = "Разбойник"
+        self.characteristics.endurance = randint(1, 15)
+        self.characteristics.strenght = randint(1, 15)
+        self.characteristics.dexterity = randint(20, 40)
+        self.characteristics.intelligence = randint(1, 10)
+
+
+class Paladin(NPC):
+    def __init__(self, name):
+        super().__init__(name)
+
+    def _set_base_characteristic(self):
+        self.class_name = "Паладин"
+        self.characteristics.endurance = randint(20, 50)
+        self.characteristics.strenght = randint(10, 20)
+        self.characteristics.dexterity = randint(1, 10)
+        self.characteristics.intelligence = randint(1, 15)
+
+
+classes = [Paladin, Warior, Rogue]
 
 if __name__ == "__main__":
     a = NPC("test")
+    b = Warior("War")
+    c = Rogue("Roga")
+    d = Paladin("ProtoPal")

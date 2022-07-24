@@ -9,7 +9,7 @@ class BaseCharacteristic:
         instance.__dict__[self.name] = value
         match self.name:
             case "endurance":
-                instance.__dict__["health"] = value // 5 * 100 + value % 5
+                instance.__dict__["health"] = value // 3 * 100 + value % 3
             case "strenght":
                 instance.__dict__["damage"] = value * 5
             case "dexterity":

@@ -1,6 +1,6 @@
 #! venv/bin/python3.10
 from random import randint, choice
-from npc import NPC
+from npc import classes
 
 
 names = [
@@ -26,7 +26,8 @@ class Game(object):
         self.number_of_NPC = number_of_npc
         self.players = []
         for i in range(number_of_npc):
-            self.players.append(NPC(choice(names) +"_"+ str(i+1)))
+            selected_class = choice(classes)
+            self.players.append(selected_class(choice(names) +"_"+ str(i+1)))
 
     def delete_dead_bodies(self):
         """удаление трупов из игры"""
@@ -45,10 +46,6 @@ class Game(object):
             return self.players[0]
         else:
             raise Exception(f"ПОБЕДИТЕЛЬ ЕЩЕ НЕ ОПРЕДЕЛЕН! Осталось {len(self.players)} игроков")
-
-    def battle(self):
-        """Запуск атак"""
-        pass
 
     def start(self) -> "NPC":
         are_alive = True
@@ -69,5 +66,8 @@ if __name__ == "__main__":
     game = Game(int(input("Введите количество игроков: ")))
     #game = Game(2)
     winner = game.start()
-    print(f"{winner.name} победил!!!")
+    if winner:
+        print(f"{winner.name} победил!!!")
+    else:
+        print("В живых не остался никто!")
 
