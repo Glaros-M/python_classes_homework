@@ -52,14 +52,9 @@ class Game(object):
 
     def start(self) -> "NPC":
         are_alive = True
-        round = 0
-        while are_alive:
-            round += 1
-
+        for round in range(10):
             self.delete_dead_bodies()
-
             print(f"Стартует раунд {round}")
-
             # Определение победителя
             if len(self.players) > 1:
                 for npc in self.players:

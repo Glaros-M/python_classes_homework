@@ -1,106 +1,47 @@
-"""
-        self.endurance = int(endurance)
-        self.strength = int(strength)
-        self.dexterity = int(dexterity)
-        self.intelligence = int(intelligence)
-"""
+class BaseCharacteristic:
 
-
-class Endurance:
-    def __init__(self, value: int = 0.0):
-        self.value = value
-
-    def __get__(self, instance, owner):
-        return self.value
+    def __init__(self, characteristic: str):
+        """"""
+        self.name = characteristic
 
     def __set__(self, instance, value):
-        self.value = value
-        instance.health = value // 5 * 100 + value % 5
-
-
-
-class Strenght:
-    def __init__(self, value: int = 0.0):
-        self.value = value
-
-    def __get__(self, instance, owner):
-        return self.value
-
-    def __set__(self, instance, value):
-        self.value = value
-
-
-class Dexterity:
-    def __init__(self, value: int = 0.0):
-        self.value = value
+        """Тут описываются зависимости второстепенных характеристик от базовых"""
+        instance.__dict__[self.name] = value
+        match self.name:
+            case "endurance":
+                instance.__dict__["health"] = value // 5 * 100 + value % 5
+            case "strenght":
+                instance.__dict__["damage"] = value * 5
+            case "dexterity":
+                if value >= 5:
+                    instance.__dict__["attack_speed"] = value // 5
+                else:
+                    instance.__dict__["attack_speed"] = 1
+            case "intelligence":
+                instance.__dict__["mana"] = value * 10
+            case _:
+                raise Exception("Указанный параметр отсутствует")
 
     def __get__(self, instance, owner):
-        return self.value
-
-    def __set__(self, instance, value):
-        self.value = value
-
-
-class Intelligence:
-    def __init__(self, value: int = 0.0):
-        self.value = value
-
-    def __get__(self, instance, owner):
-        return self.value
-
-    def __set__(self, instance, value):
-        self.value = value
-
-
-class Health:
-    """Сложная характеристика. При создании зависит от выносливости,
-     но в дальнейшем уменьшается не уменьшая выносливость. Аналогично будет с маной"""
-    # Пока что оставил прямую инициализацию от выносливости при создании
-    _instance = None
-
-    def __init__(self, endurance: int = 0):
-        self.value = endurance // 5 * 100 + endurance % 5
-
-    def __get__(self, instance, owner):
-        return self.value
-
-    def __set__(self, instance, value):
-        self.value = value
-
-class Damage:
-    def __set__(self, instance, value):
-        instance.strenght = value // 5
-
-    def __get__(self, instance, owner):
-        return instance.strenght*5
-
-
-class AttackSpeed:
-    def __set__(self, instance, value):
-        instance.dexterity = value * 5
-
-    def __get__(self, instance, owner):
-        return instance.dexterity // 5
-
-
-class Mana:
-    def __set__(self, instance, value):
-        instance.intelligance = value // 10
-
-    def __get__(self, instance, owner):
-        return instance.intelligence * 10
+        return instance.__dict__[self.name]
 
 
 class Characteristics:
-    endurance = Endurance()
-    health = Health(endurance.value)
-    strenght = Strenght()
-    damage = Damage()
-    dexterity = Dexterity()
-    attack_speed = AttackSpeed()
-    intelligence = Intelligence()
-    mana = Mana()
+    endurance = BaseCharacteristic("endurance")
+    strenght = BaseCharacteristic("strenght")
+    dexterity = BaseCharacteristic("dexterity")
+    intelligence = BaseCharacteristic("intelligence")
 
+    def __init__(self, endurance = 0, health = 0,  strenght = 0,  damage = 0,
+                 dexterity = 0,  attack_speed = 0,  intelligence = 0,  mana = 0):
+        self.endurance = endurance
+        self.health = health
+        self.strenght = strenght
+        self.damage = damage
+        self.dexterity = dexterity
+        self.attack_speed = attack_speed
+        self.intelligence = intelligence
+        self.mana = mana
 
     def get_base_characteristics(self):
         print(f"Выносливость: {self.endurance}",
@@ -155,3 +96,20 @@ if __name__ == "__main__":
 
     char.health = 15
     print(f"{char.health = }")
+
+    char2 = Characteristics()
+
+    char2.endurance = 12
+    print(f"{char.endurance} выносливости",
+          f"{char.endurance = }",
+          f"{char.health = }",
+          sep="\n",
+          end="\n"
+          )
+
+    print(f"{char2.endurance} выносливости",
+          f"{char2.endurance = }",
+          f"{char2.health = }",
+          sep="\n",
+          end="\n"
+          )
