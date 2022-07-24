@@ -48,7 +48,7 @@ class Game(object):
 
     def start(self) -> "NPC":
         are_alive = True
-        for round in range(10):
+        for round in range(1, self.rounds):
             self.delete_dead_bodies()
             # Определение победителя
             if len(self.players) > 1:
@@ -63,7 +63,6 @@ class Game(object):
 if __name__ == "__main__":
     print("Welcome to the Game!")
     game = Game(int(input("Введите количество игроков: ")))
-    #game = Game(2)
     winner = game.start()
     if winner:
         print(f"{winner.name} победил!!!")

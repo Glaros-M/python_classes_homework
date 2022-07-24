@@ -73,7 +73,7 @@ class Paladin(NPC):
 
     def _set_base_characteristic(self):
         self.class_name = "Паладин"
-        self.characteristics.endurance = randint(20, 50)
+        self.characteristics.endurance = randint(15, 35)
         self.characteristics.strenght = randint(10, 20)
         self.characteristics.dexterity = randint(1, 10)
         self.characteristics.intelligence = randint(1, 15)
