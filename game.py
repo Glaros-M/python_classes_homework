@@ -1,6 +1,7 @@
 #! venv/bin/python3.10
-from random import randint, choice
+from random import choice
 from npc import classes
+from names import Name
 
 
 names = [
@@ -25,9 +26,11 @@ class Game(object):
     def __init__(self, number_of_npc: int):
         self.number_of_NPC = number_of_npc
         self.players = []
-        for i in range(number_of_npc):
+        self.rounds = self.number_of_NPC * 5
+        for _ in range(number_of_npc):
             selected_class = choice(classes)
-            self.players.append(selected_class(choice(names) +"_"+ str(i+1)))
+            selected_name = Name()
+            self.players.append(selected_class(selected_name.name))
 
     def delete_dead_bodies(self):
         """удаление трупов из игры"""
@@ -38,10 +41,6 @@ class Game(object):
         self.players = temp
 
     def check_for_winner(self) -> "NPC":
-        """Если игрок остался один - вернуть его как победителя.
-        Вопрос: необходимо ли делать проверку тут? что возвращать если функция вызвана до конца игры?
-        Ввести рейтинг для битв с несколькими выжившими?
-        """
         if len(self.players) == 1:
             return self.players[0]
         else:
@@ -69,5 +68,5 @@ if __name__ == "__main__":
     if winner:
         print(f"{winner.name} победил!!!")
     else:
-        print("В живых не остался никто!")
+        print("Победитель не определился.")
 

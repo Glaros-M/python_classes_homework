@@ -2,9 +2,6 @@ from characteristics import Characteristics
 from random import randint, choice
 
 
-# Создать класс(?) генератор имен и фамилий
-
-
 class NPC(object):
 
     def __init__(self, name: str):
