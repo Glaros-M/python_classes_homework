@@ -54,9 +54,9 @@ class Game(object):
         are_alive = True
         for round in range(10):
             self.delete_dead_bodies()
-            print(f"Стартует раунд {round}")
             # Определение победителя
             if len(self.players) > 1:
+                print(f"Стартует раунд {round}")
                 for npc in self.players:
                     if npc.is_alive:
                         npc.attack(target=npc.get_target(self.players))
@@ -64,19 +64,10 @@ class Game(object):
                 return self.check_for_winner()
 
 
-class Players_list():
-    def __int__(self, players):
-        self.players = players
-
-    def player_dies(self):
-        pass
-
-
-
 if __name__ == "__main__":
     print("Welcome to the Game!")
-    #game = Game(int(input("Введите количество игроков: ")))
-    game = Game(2)
+    game = Game(int(input("Введите количество игроков: ")))
+    #game = Game(2)
     winner = game.start()
     print(f"{winner.name} победил!!!")
 
