@@ -4,17 +4,6 @@ from npc import classes
 from names import Name
 
 
-names = [
-    'Иван',
-    'Дима',
-    'Максим',
-    'Коля',
-    'Михаил',
-    'Терентий',
-    'Маша'
-]
-
-
 class Game(object):
     _instance = None
 
@@ -52,7 +41,7 @@ class Game(object):
             self.delete_dead_bodies()
             # Определение победителя
             if len(self.players) > 1:
-                print(f"Стартует раунд {round}")
+                print(f"\nСтартует раунд {round}")
                 for npc in self.players:
                     if npc.is_alive:
                         npc.attack(target=npc.get_target(self.players))
@@ -65,7 +54,7 @@ if __name__ == "__main__":
     game = Game(int(input("Введите количество игроков: ")))
     winner = game.start()
     if winner:
-        print(f"{winner.name} победил!!!")
+        print(f"\n{winner.name} победил!!!")
     else:
         print("Победитель не определился.")
 
