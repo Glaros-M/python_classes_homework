@@ -1,0 +1,11 @@
+#! venv/bin/python3.10
+from game import Game
+
+if __name__ == "__main__":
+    print("Welcome to the Game!")
+    game = Game(int(input("Введите количество игроков: ")))
+    winner = game.start()
+    if winner:
+        print(f"\n{winner.name} победил!!!")
+    else:
+        print("Победитель не определился.")

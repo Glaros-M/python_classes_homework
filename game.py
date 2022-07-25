@@ -1,4 +1,3 @@
-#! venv/bin/python3.10
 from random import choice
 from npc import classes
 from names import Name
@@ -51,7 +50,8 @@ class Game(object):
 
 if __name__ == "__main__":
     print("Welcome to the Game!")
-    game = Game(int(input("Введите количество игроков: ")))
+    #game = Game(int(input("Введите количество игроков: ")))
+    game = Game(2)
     winner = game.start()
     if winner:
         print(f"\n{winner.name} победил!!!")
